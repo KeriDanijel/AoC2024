@@ -65,20 +65,36 @@ func solveDay1Part1(input []string) interface{} {
 	sort.Ints(rl)
 	// sort ll and rl
 	for i := 0; i < len(ll); i++ {
-		t += int(abs(ll[i] - rl[i]))
+		t += int(utils.Abs(ll[i] - rl[i]))
 	}
 
 	return t
 }
 
 func solveDay1Part2(input []string) interface{} {
-	// Implement your solution for Part 2 here
-	return "Result for Part 2"
-}
 
-func abs(x int) int {
-	if x < 0 {
-		return -x
+	var t int64 = 0
+	m := make(map[int64]int64)
+
+	var ll []int64
+
+	for _, ln := range input {
+		temp := utils.ExtractInt64s(ln)
+		v, ex := m[temp[1]]
+		if ex {
+			m[temp[1]] = v + temp[1]
+		} else {
+			m[temp[1]] = temp[1]
+		}
+		ll = append(ll, temp[0])
 	}
-	return x
+
+	for i := 0; i < len(ll); i++ {
+		v, ex := m[ll[i]]
+		if ex {
+			t += v
+		}
+	}
+
+	return t
 }
