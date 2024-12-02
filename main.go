@@ -19,6 +19,8 @@ func main() {
 		code.Day1()
 	case "2":
 		code.Day2()
+	case "3":
+		code.Day3()
 	default:
 		log.Fatalf("Day %s is not implemented yet", day)
 	}
