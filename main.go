@@ -17,8 +17,8 @@ func main() {
 	switch day {
 	case "1":
 		code.Day1()
-	//case "2":
-	//code.Day2()
+	case "2":
+		code.Day2()
 	default:
 		log.Fatalf("Day %s is not implemented yet", day)
 	}
