@@ -3,6 +3,7 @@ package code
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"advent/utils"
 )
@@ -36,13 +37,29 @@ func Day3() {
 }
 
 func solveDay3Part1(input []string) interface{} {
+	t := 0
 	for _, in := range input {
-		fmt.Println(in) // Replace with your logic for Part 1
+		p := utils.ExtractPattern(in)
+		for _, s := range p {
+			m := utils.ExtractIntegers(s)
+			t += m[0] * m[1]
+		}
 	}
-	return "Result for Part 1" // Replace with actual result
+	return t
 }
 
 func solveDay3Part2(input []string) interface{} {
-	// Implement your solution for Part 2 here
-	return "Result for Part 2" // Replace with actual result
+	t := 0
+
+	ci := strings.Join(input, "")
+	ep := utils.ExtractEnabled(ci)
+
+	for _, e := range ep {
+		ps := utils.ExtractPattern(e)
+		for _, p := range ps {
+			is := utils.ExtractIntegers(p)
+			t += is[0] * is[1]
+		}
+	}
+	return t
 }

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"unicode"
@@ -123,4 +124,33 @@ func ExtractInt64s(input string) []int64 {
 	}
 
 	return numbers
+}
+
+func ExtractPattern(input string) []string {
+	pattern := `mul\(\d{1,3},\d{1,3}\)`
+
+	re := regexp.MustCompile(pattern)
+
+	matches := re.FindAllString(input, -1)
+
+	return matches
+}
+
+func ExtractEnabled(input string) []string {
+	var enabled []string
+
+	doChunks := strings.Split(input, "do()")
+
+	for _, chunk := range doChunks {
+		if strings.TrimSpace(chunk) == "" {
+			continue
+		}
+
+		enabledPart := strings.Split(chunk, "don't()")[0]
+
+		enabledItems := strings.Fields(enabledPart)
+		enabled = append(enabled, enabledItems...)
+	}
+
+	return enabled
 }
